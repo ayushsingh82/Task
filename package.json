@@ -10,8 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@wagmi/core": "^1.4.13",
+    "ethers": "5.7",
+    "iconsax-react": "^0.0.8",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "viem": "^1.21.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",

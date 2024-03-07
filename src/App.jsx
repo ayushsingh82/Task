@@ -1,33 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React,{useStaet} from 'react'
+import './index.css'
+
+import Exchange from './components/Exchange'
+
+// import { configureChains, createConfig } from "@wagmi/core";
+// import { mainnet, arbitrum, bsc, optimism, polygon } from "@wagmi/core/chains";
+// import { publicProvider } from "@wagmi/core/providers/public";
+// import { alchemyProvider } from "@wagmi/core/providers/alchemy";
+// import { infuraProvider } from "@wagmi/core/providers/infura";
+// import { createModal } from "@rabby-wallet/rabbykit";
+ 
+// const { chains, publicClient, webSocketPublicClient } = configureChains(
+//   [mainnet, arbitrum, bsc, optimism, polygon],
+//   [
+//     // alchemyProvider({ apiKey: "yourAlchemyApiKey" }),
+//     // infuraProvider({ apiKey: "yourInfuraApiKey" }),
+//     alchemyProvider({ apiKey: "lYTRBI2DiVE0u9E1dyUMGmCabQATJGdw" }),
+//     infuraProvider({ apiKey: "0f2cc737a50a487c945659469889bd2a" }),
+//     publicProvider(),
+//   ]
+// );
+ 
+// const config = createConfig({
+//   autoConnect: true,
+//   publicClient,
+//   webSocketPublicClient,
+// });
+ 
+// export const rabbyKit = createModal({
+//   chains,
+//   wagmi: config,
+//   // projectId: "yourProjectId",
+//   projectId: "8d42c29b160d6f347649aa1cdf3e4cab",
+//   appName: "RabbyKit",
+// });
+ 
+// rabbykit.open();
+ 
+// console.log("current rabbykit modal open status:", rabbyKit.getOpenState());
+ 
+// rabbykit.close();
+
 
 function App() {
-  const [count, setCount] = useState(0)
+ 
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div className='bg-black '>
+<Exchange/>
+    </div>
     </>
   )
 }
