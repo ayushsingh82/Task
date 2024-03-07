@@ -1,6 +1,50 @@
 import React, { useState } from 'react';
 import { ArrowSwapVertical } from "iconsax-react";
 
+
+  import {ethers} from "ethers"
+//   const {ethers}=require("ethers");
+//   const {abi:QuoterABI}=require("@uniswap/v3-periphery/artifacts/contracts/lens/Quoter.sol/Quoter.json")
+  import Quoter from '@uniswap/v3-periphery/artifacts/contracts/lens/Quoter.sol/Quoter.json'
+  
+  const  provider=new ethers.providers.JsonRpcProvider(
+      "https://eth-mainnet.g.alchemy.com/v2/qHM1xJXNUCZE5QkllOuPlromiTnb3Dam"
+  )
+  
+  const fetchPrice=async(addressFrom,addressTo,humanValue)=>{
+      
+      const QUOTER_CONTRACT_ADDRESS="0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6"
+      const quoterContract = new ethers.Contract(
+          QUOTER_CONTRACT_ADDRESS,
+          Quoter,
+          provider
+        )
+        console.log(quoterContract)
+  
+        const amountIn = ethers.utils.parseUnits(humanValue,18)
+        const quotedAmountOut = await quoterContract.callStatic.quoteExactInputSingle(
+            addressFrom,
+            addressTo,
+            3000,
+            amountIn.toString(),
+            0
+          )
+        const amount = ethers.utils.formatUnits(quotedAmountOut.toString(),18);
+        return amount;
+    
+  }
+  
+  const main =async()=>{
+      const addressFrom="0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+      const addressTo="0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+  
+      const humanValue="1"
+      const result=await fetchPrice(addressFrom,addressTo,humanValue);
+      // console.log(result);
+  }
+  
+  main()
+
 function Exchange() {
   const [sendValue, setSendValue] = useState('');
   const [receiveValue, setReceiveValue] = useState('');
@@ -87,52 +131,10 @@ function Exchange() {
       </div>
     </div>
   );
+
+
 }
 
 export default Exchange;
 
 
-// import React, { useState, useEffect } from 'react';
-// import { ThirdwebSDK } from '@thirdweb-dev/sdk';
-
-// const USDC_ETH_PAIR_ADDRESS = '0xC36442b4a4522E871399CD717aBDD847Ab11FE88'; // Uniswap v3 USDC/ETH pair address
-
-// const Exchange = () => {
-//   const [exchangeRate, setExchangeRate] = useState(null);
-//   const [sdk, setSDK] = useState(null);
-
-//   useEffect(() => {
-//     const initSDK = async () => {
-//       const sdk = new ThirdwebSDK('ethereum');
-//       setSDK(sdk);
-//     };
-
-//     initSDK();
-//   }, []);
-
-//   useEffect(() => {
-//     if (!sdk) return;
-
-//     const fetchExchangeRate = async () => {
-//       const pair = sdk.getPair(USDC_ETH_PAIR_ADDRESS);
-//       const reserves = await pair.getReserves();
-//       const exchangeRate = reserves[1] / reserves[0];
-//       setExchangeRate(exchangeRate);
-//     };
-
-//     fetchExchangeRate();
-//   }, [sdk]);
-
-//   return (
-//     <div>
-//       <h2>USDC to ETH Exchange Rate</h2>
-//       {exchangeRate ? (
-//         <p>1 USDC = {exchangeRate.toFixed(6)} ETH</p>
-//       ) : (
-//         <p>Loading...</p>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Exchange;
